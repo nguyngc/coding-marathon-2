@@ -12,7 +12,8 @@ const useLogin = (setIsAuthenticated, email, password) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-
+      const data = await response.json();
+      console.log(data);
       if (response.ok) {
         const user = await response.json();
         sessionStorage.setItem("user", JSON.stringify(user));
@@ -21,7 +22,7 @@ const useLogin = (setIsAuthenticated, email, password) => {
         navigate("/");
       } else {
         const errorMsg = await response.text();
-        toast.error("Login failed: " + errorMsg);
+        toast.error("Login failed: " + data.error);
       }
     } catch (error) {
       toast.error("Error during login:" + error);
