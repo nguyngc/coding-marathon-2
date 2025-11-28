@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Route,
   createBrowserRouter,
@@ -15,6 +16,8 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 
 const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(JSON.parse(localStorage.getItem("user")) || false);
+
   // Add New Job
   const addJob = async (newJob) => {
     const res = await fetch('/api/jobs', {
@@ -65,7 +68,7 @@ const App = () => {
         />
 
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/signup' element={<SignupPage />} />
+        <Route path='/signup' element={<SignupPage setIsAuthenticated={setIsAuthenticated} />} />
 
         <Route path='*' element={<NotFoundPage />} />
       </Route>
