@@ -8,6 +8,7 @@ const { unknownEndpoint, errorHandler } = require("./middleware/customMiddleware
 const connectDB = require("./config/db");
 
 const jobRoutes = require("./routes/jobRouter");
+const userRouter = require("./routes/userRouter");
 
 // Middlewares
 app.use(cors());
@@ -17,9 +18,7 @@ app.use(morgan("dev"));
 connectDB();
 
 app.use("/api/jobs", jobRoutes);
-
-// const userRouter = require("./routes/userRouter");
-// app.use("/api/users", userRouter);
+app.use("/api/users", userRouter);
 
 app.use(unknownEndpoint);
 app.use(errorHandler);
