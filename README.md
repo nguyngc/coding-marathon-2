@@ -1,3 +1,9 @@
+# Backend Deployment URL (latest version)
+- [https://coding-marathon-2-cxzk.onrender.com/api/users/register](https://coding-marathon-2-cxzk.onrender.com/api/users/register)
+- [https://coding-marathon-2-cxzk.onrender.com/api/users/login](https://coding-marathon-2-cxzk.onrender.com/api/users/login)
+
+
+----
 # React Jobs Project
 
 ## Usage
