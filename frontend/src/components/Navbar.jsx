@@ -30,6 +30,15 @@ const Navbar = () => {
                   Add Job
                 </NavLink>
               </div>
+
+              <div className='flex space-x-2'>
+                <NavLink to='/login' className={linkClass}>
+                  Login
+                </NavLink>
+                <NavLink to='/signup' className={linkClass}>
+                  Signup
+                </NavLink>
+              </div>
             </div>
           </div>
         </div>
