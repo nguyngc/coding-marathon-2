@@ -39,22 +39,22 @@ const useSignup = function (setIsAuthenticated, name, email, password, password2
         body: JSON.stringify(newUser),
       });
 
-      console.log(response);
-
+      const data = await response.json();
+      console.log(data);
+        
       if (response.ok) {
-        const user = await response.json();
-        sessionStorage.setItem("user", JSON.stringify(user));
+        sessionStorage.setItem("user", JSON.stringify(data));
         toast.success('User signed up Successfully');
         setIsAuthenticated(true);
         navigate("/");
         return;
       } else {
-        toast.error('Signup failed!');
+        toast.error('Signup failed: ' + data.error);
         return;
       }
     } catch (error) {
       console.log(error);
-      toast.error('Error during signup:', error);
+      toast.error('Error during signup:' + error);
       return;
     }
   };
