@@ -16,7 +16,7 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(JSON.parse(localStorage.getItem("user")) || false);
+  const [isAuthenticated, setIsAuthenticated] = useState(JSON.parse(sessionStorage.getItem("user")) || false);
 
   // Add New Job
   const addJob = async (newJob) => {
