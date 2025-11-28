@@ -1,36 +1,34 @@
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; 
 
 const useLogin = (setIsAuthenticated, email, password) => {
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    console.log("login function");
-    // try {
-    //   const response = await fetch("/api/users/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ email, password }),
-    //   });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    //   if (response.ok) {
-    //     const user = await response.json();
-    //     sessionStorage.setItem("user", JSON.stringify(user));
-    //     console.log("User logged in successfully!");
-    //     setIsAuthenticated(true);
-    //     navigate("/");
-    //   } else {
-    //     console.error("Login failed");
-    //   }
-    // } catch (error) {
-    //   console.error("Error during login:", error);
-    // }
+      if (response.ok) {
+        const user = await response.json();
+        sessionStorage.setItem("user", JSON.stringify(user));
+        toast.success("Login successful!");
+        setIsAuthenticated(true);
+        navigate("/");
+      } else {
+        const errorMsg = await response.text();
+        toast.error("Login failed: " + errorMsg);
+      }
+    } catch (error) {
+      toast.error("Error during login:" + error);
+    }
   };
 
-  return {
-    handleLogin,
-  };
+  return { handleLogin };
 };
 
 export default useLogin;

@@ -67,7 +67,7 @@ const App = () => {
           loader={jobLoader}
         />
 
-        <Route path='/login' element={<LoginPage />} />
+        <Route path='/login' element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>} />
         <Route path='/signup' element={<SignupPage setIsAuthenticated={setIsAuthenticated} />} />
 
         <Route path='*' element={<NotFoundPage />} />
