@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import useFetch from "./useFetch";
 
 const useSignup = function (setIsAuthenticated, name, email, password, password2,
   phoneNumer, gender, addressStreet, city, zipCode) {
 
   const navigate = useNavigate();
+  const { execute, loading } = useFetch("/api/users/register", {}, true);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -28,35 +30,39 @@ const useSignup = function (setIsAuthenticated, name, email, password, password2
       }
     }
 
-    console.log(newUser);
-
     try {
-      const response = await fetch("/api/users/register", {
+      // const response = await fetch("/api/users/register", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(newUser),
+      // });
+
+      // const data = await response.json();
+      // console.log(data);
+
+      const data = await execute({
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUser)
       });
 
-      const data = await response.json();
-      console.log(data);
-        
-      if (response.ok) {
-        sessionStorage.setItem("user", JSON.stringify(data));
-        toast.success('User signed up Successfully');
-        setIsAuthenticated(true);
-        navigate("/");
-        return;
-      } else {
-        toast.error('Signup failed: ' + data.error);
-        return;
-      }
+      // if (response.ok) {
+      sessionStorage.setItem("user", JSON.stringify(data));
+      toast.success('User signed up Successfully');
+      setIsAuthenticated(true);
+      navigate("/");
+      return;
     } catch (error) {
-      console.log(error);
-      toast.error('Error during signup:' + error);
+      toast.error('Signup failed: ' + error.message);
       return;
     }
+    // } catch (error) {
+    //   console.log(error);
+    //   toast.error('Error during signup:' + error);
+    //   return;
+    // }
   };
 
   return {

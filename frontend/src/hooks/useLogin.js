@@ -14,14 +14,13 @@ const useLogin = (setIsAuthenticated, email, password) => {
       });
       const data = await response.json();
       console.log(data);
+      
       if (response.ok) {
-        const user = await response.json();
-        sessionStorage.setItem("user", JSON.stringify(user));
+        sessionStorage.setItem("user", JSON.stringify(data));
         toast.success("Login successful!");
         setIsAuthenticated(true);
         navigate("/");
       } else {
-        const errorMsg = await response.text();
         toast.error("Login failed: " + data.error);
       }
     } catch (error) {
