@@ -22,7 +22,7 @@
 - No way to reset the field from the caller (common need after form submit).
 - No support for an initial value.
 setValue is not exposed, so components cannot programmatically update the field other than via user input.
-- Returning all properties at top level (type, value, onChange) encourages the common pattern of spreading the whole return into an <input />, but that becomes risky if you later add helpers like reset — they might accidentally be passed to DOM elements.
+- Returning all properties at top level (type, value, onChange) encourages the common pattern of spreading the whole return into an (input), but that becomes risky if you later add helpers like reset — they might accidentally be passed to DOM elements.
 - onChange is recreated on every render (minor perf issue when passing down many handlers).
 - No support for bindings like onBlur or other input props if needed later.
 ### Key improvements
@@ -48,7 +48,7 @@ setValue is not exposed, so components cannot programmatically update the field 
 - Tight coupling: the component depends on the current shapes returned by useField and useLogin; changes to those hooks can break the component.
 ### Key improvements
 - Avoid stale values: call useLogin(setIsAuthenticated) without credentials and pass current credentials to handleLogin at submit time (e.g., handleLogin(e, { email, password })).
-- Safe spreading: make useField return a dedicated inputProps/bind object so only safe props are spread into <input>.
+- Safe spreading: make useField return a dedicated inputProps/bind object so only safe props are spread into (input).
 - Correct input types and attributes: use type="email" for the email field and add autoComplete="email" and autoComplete="current-password" for password.
 - Expose and use loading: have useLogin return loading so the submit button can be disabled and show a spinner; set aria-busy appropriately.
 - Reset on success: clear input fields after a confirmed successful login (either by handleLogin returning success or by checking a saved value).
