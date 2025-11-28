@@ -38,8 +38,8 @@ const Navbar = ({ setIsAuthenticated, isAuthenticated }) => {
 
                 {isAuthenticated && (
                   <>
-                    <span>Welcome</span>
-                    <button onClick={handleLogout}>Log out</button>
+                    <div className='text-white rounded-md px-3 py-2'>Welcome</div>
+                    <button className='text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2' onClick={handleLogout}>Log out</button>
                   </>
                 )}
                 {!isAuthenticated && (
