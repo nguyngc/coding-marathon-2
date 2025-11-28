@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; 
 
-const useLogin = (setIsAuthenticated,setMessage, setError) => {
+const useLogin = (setIsAuthenticated, email, password) => {
   const navigate = useNavigate();
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       const response = await fetch("/api/users/login", {
         method: "POST",
@@ -14,15 +16,15 @@ const useLogin = (setIsAuthenticated,setMessage, setError) => {
       if (response.ok) {
         const user = await response.json();
         sessionStorage.setItem("user", JSON.stringify(user));
+        toast.success("Login successful!");
         setIsAuthenticated(true);
-        setMessage("Login successful!");
         navigate("/");
       } else {
         const errorMsg = await response.text();
-        setError("Login fialed: " + errorMsg);
+        toast.error("Login failed: " + errorMsg);
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      toast.error("Error during login:" + error);
     }
   };
 
