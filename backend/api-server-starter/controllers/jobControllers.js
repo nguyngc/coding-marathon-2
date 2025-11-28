@@ -28,15 +28,12 @@ const createJob = async (req, res) => {
 // Get All
 const getAllJobs = async (req, res) => {
   try {
-    const limit = req.query._limit ? Number(req.query._limit) : undefined;
+    const limit = parseInt(req.query._limit);
 
-    let query = Job.find({}).sort({ _id: -1 }); 
+    const jobs = limit
+      ? await Job.find({}).sort({ createdAt: -1 }).limit(limit)
+      : await Job.find({}).sort({ createdAt: -1 });
 
-    if (limit) {
-      query = query.limit(limit);
-    }
-
-    const jobs = await query;
     return res.status(200).json(jobs);
   } catch (error) {
     return res
