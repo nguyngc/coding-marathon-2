@@ -1,21 +1,20 @@
-import { useNavigate } from "react-router-dom";
 import useField from "../hooks/useField";
+import useSignup from "../hooks/useSignup";
 
-const SignupPage = () => {
+const SignupPage = ({ setIsAuthenticated }) => {
   const nameInput = useField('text');
   const emailInput = useField('text');
   const passwordInput = useField('password');
   const password2Input = useField('password');
   const phoneNumberInput = useField('text');
   const genderInput = useField('text');
-  const dateOfBirthInput = useField('date');
-  const membershipStatusInput = useField('text');
-  const navigate = useNavigate();
+  const addressInput = useField('text');
+  const cityInput = useField('text');
+  const zipCodeInput = useField('text');
 
-  const handleSignup = async () => {
-    console.log('Signup....');
-    navigate("/");
-  };
+  const { handleSignup } = useSignup(setIsAuthenticated,
+    nameInput.value, emailInput.value, passwordInput.value, password2Input.value, 
+    phoneNumberInput.value, genderInput.value, addressInput.value, cityInput.value, zipCodeInput.value);
 
   return (
     <section className='bg-indigo-50'>
@@ -79,18 +78,27 @@ const SignupPage = () => {
 
             <div className='mb-4'>
               <label htmlFor='type' className='block text-gray-700 font-bold mb-2' >
-                Date Of Birth
+                Address
               </label>
-              <input {...dateOfBirthInput} id='date_of_birth' name='date_of_birth'
+              <input {...addressInput} id='address' name='address'
                 className='border rounded w-full py-2 px-3 mb-2'
                 required />
             </div>
 
             <div className='mb-4'>
               <label htmlFor='type' className='block text-gray-700 font-bold mb-2' >
-                Membership status
+                City
               </label>
-              <input {...membershipStatusInput} id='membership_status' name='membership_status'
+              <input {...cityInput} id='city' name='city'
+                className='border rounded w-full py-2 px-3 mb-2'
+                required />
+            </div>
+
+            <div className='mb-4'>
+              <label htmlFor='type' className='block text-gray-700 font-bold mb-2' >
+                Zip Code
+              </label>
+              <input {...zipCodeInput} id='zip_code' name='zip_code'
                 className='border rounded w-full py-2 px-3 mb-2'
                 required />
             </div>
