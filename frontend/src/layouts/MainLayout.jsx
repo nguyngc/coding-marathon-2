@@ -4,11 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar';
 
-const MainLayout = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    JSON.parse(sessionStorage.getItem("user")) || false
-  );
-
+const MainLayout = ({ isAuthenticated, setIsAuthenticated }) => {
   return (
     <>
       <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />

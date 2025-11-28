@@ -52,7 +52,7 @@ const App = () => {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path='/' element={<MainLayout />}>
+      <Route path='/' element={<MainLayout isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />}>
         <Route index element={<HomePage />} />
         <Route path='/jobs' element={<JobsPage />} />
         <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob} />} />
@@ -67,7 +67,7 @@ const App = () => {
           loader={jobLoader}
         />
 
-        <Route path='/login' element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>} />
+        <Route path='/login' element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path='/signup' element={<SignupPage setIsAuthenticated={setIsAuthenticated} />} />
 
         <Route path='*' element={<NotFoundPage />} />
